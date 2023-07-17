@@ -1,6 +1,6 @@
-potassium
+potassium==0.0.10
+transformers==4.26.1
+bitsandbytes==0.35.4
+accelerate==0.15.0
+deep_translator==1.10.1
 torch
-transformers
-bitsandbytes
-accelerate
-deep_translator
