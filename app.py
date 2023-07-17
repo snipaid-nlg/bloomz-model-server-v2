@@ -1,6 +1,6 @@
 from potassium import Potassium, Request, Response
 
-from transformers import pipeline
+from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 app = Potassium("my_app")
@@ -8,11 +8,28 @@ app = Potassium("my_app")
 # @app.init runs at startup, and loads models into the app's context
 @app.init
 def init():
-    device = 0 if torch.cuda.is_available() else -1
-    model = pipeline('fill-mask', model='bert-base-uncased', device=device)
-   
+    device = "cuda:0" if torch.cuda.is_available() else "cpu"
+    
+    # load model
+    print("loading model to CPU...")
+    model = AutoModelForCausalLM.from_pretrained("bigscience/bloomz-3b", use_cache=True)
+    print("done")
+
+    # conditionally load model to GPU
+    if device == "cuda:0":
+        print("loading model to GPU...")
+        model.cuda()
+        print("done")
+
+    # load tokenizer
+    print("loading tokenizer...")
+    tokenizer = AutoTokenizer.from_pretrained("bigscience/bloomz-3b")
+    print("done")
+    
+    # build context to return model and tokenizer with
     context = {
-        "model": model
+        "model": model,
+        "tokenizer": tokenizer
     }
 
     return context
