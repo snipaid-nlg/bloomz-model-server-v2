@@ -3,7 +3,7 @@ This is a Potassium HTTP server for a BLOOMZ model with our english-centric appr
 
 ## Quickstart
 
-> _**Note:** This model requires a GPU with ~ 12GB memory for generation!_
+> _**Note:** This model requires a GPU with ~ 8GB memory for generation!_
 
 Curious to get your hand on englsh-centric BLOOMZ news snippet generation?
 
